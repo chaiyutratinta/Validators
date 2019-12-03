@@ -1,6 +1,7 @@
 package main
 
 import (
+	"Validators/constants"
 	"Validators/errors"
 	"fmt"
 )
@@ -12,7 +13,7 @@ type something struct {
 func main() {
 	err := errors.New()
 	for i := 0; i <= 10; i++ {
-		err.Field("Field").ErrMsg("Fuck").Rule("len").Set()
+		err.Field("Name").Rule(constants.Req).Build()
 	}
 
 	// err := validate.Struct(stru)

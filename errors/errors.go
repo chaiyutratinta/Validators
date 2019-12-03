@@ -17,7 +17,7 @@ type ErrorsBuilder interface {
 	Field(string) ErrorsBuilder
 	Rule(string) ErrorsBuilder
 	ErrMsg(string) ErrorsBuilder
-	Set()
+	Build()
 	GetError() Errors
 }
 
@@ -43,7 +43,11 @@ func (e *TmpErrors) ErrMsg(err string) ErrorsBuilder {
 	return e
 }
 
-func (e *TmpErrors) Set() {
+func (e *TmpErrors) Build() {
+	if e.Tmp.ErrMsg == "" {
+		e.Tmp.ErrMsg = SetDefaultMsg(e.Tmp.FieldName, e.Tmp.Rule)
+	}
+
 	e.Errs = append(e.Errs, e.Tmp)
 }
 
