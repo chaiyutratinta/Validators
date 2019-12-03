@@ -1,15 +1,36 @@
 package main
 
-import "fmt"
+import (
+	"custom_validator/validators"
+	"fmt"
+)
 
 type something struct {
-	a string `json:"a",validate:"Required,Email",condition:"Length<=10"`
+	A string `json:"a" rules:"required" condition:"Length<=10" validate:"required"`
+	B string `json:"b" rules:"required"`
+	C int    `json:"c" validate:"required"`
+}
+
+type something2 struct {
+	productName string
+	amount      int
+	price       int
 }
 
 func main() {
-	stru := something{}
+	stru := &something{
+		A: "a",
+		B: "B",
+		C: 0,
+	}
+	// stru2 := something2{}
 
-	// validate := validator.Validate()
+	validators.Validate(stru)
+
+	// validators.Validate(stru2)
+
+	// validate := validator.New()
 	// err := validate.Struct(stru)
+	// fmt.Println(err)
 	fmt.Println("RUN MAIN")
 }
